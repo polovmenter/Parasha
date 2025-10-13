@@ -225,3 +225,118 @@ import warnings
 # Z = np.random.random((5,2))
 # D = np.sqrt(((Z[:,np.newaxis,:] - Z[np.newaxis,:,:]) ** 2).sum(axis=2))
 # print(Z, '\n\n', D)
+
+#53
+# arr = np.array([1.5, 2.7, 3.1, 4.9], dtype=np.float32)
+# print(arr)
+# arr = arr.astype(np.int32, copy=False)
+# print(arr)
+
+#54
+# arr = np.genfromtxt('text.txt', delimiter=',', filling_values=0)
+# print(arr)
+
+#55
+# arr = np.array([[1, 2, 3], [4, 5, 6]])
+# for i, val in np.ndenumerate(arr):
+#     print(i, val)
+
+#56
+# x = np.linspace(-3, 3, 4)
+# y = np.linspace(-3, 3, 4)
+# X, Y = np.meshgrid(x, y)
+# Z = np.exp(-(X**2 + Y**2) / 2) / (2 * np.pi)
+# print(Z)
+
+#57
+# arr = np.zeros((5, 5), dtype=int)
+# p = 4
+# value = 1
+# arr.flat[np.random.choice(arr.shape[0] * arr.shape[1], p, replace=False)] = value
+# print(arr)
+
+#58
+# matrix = np.array([[1, 9, 3],[4, 5, 7],[4, 8, 3]], dtype=float)
+# row_means = matrix.mean(axis=1, keepdims=True)
+# print(matrix - row_means)
+
+#59
+# arr = np.array([[3, 2, 1],[2, 5, 4],[9, 8, 7]])
+# n = 0
+# sorted_arr = arr[arr[:, n].argsort()]
+# print(sorted_arr)
+
+#60
+# arr = np.array([[1, 0, 3, 0],[0, 0, 4, 0],[2, 0, 5, 0]])
+# print(np.any(np.all(arr == 0, axis=0)))
+
+#61
+# arr_2d = np.array([[1, 5, 9],[2, 8, 3],[7, 4, 6]])
+# target = 10
+# print(arr_2d.flat[np.abs(arr_2d - target).argmin()])
+
+#62
+# a = np.array([[1, 2, 3]])
+# b = np.array([[4], [5], [6]])
+# result = np.empty((3, 3))
+# it = np.nditer([a, b, result], flags=['multi_index'], op_flags=[['readonly'], ['readonly'], ['writeonly']])
+# for x, y, z in it:
+#     i, j = it.multi_index
+#     z[...] = a[0, j] + b[i, 0]
+# print(result)
+
+#63
+# class NamedArray:
+#     def __init__(self, name, array):
+#         self.name = name
+#         self.array = np.array(array)
+# test = NamedArray('arr', [1, 2, 3])
+# print(f'{test.name}: {test.array}')
+
+#64
+# Z = np.array([0, 0, 0, 0, 0])
+# I = np.array([0, 1, 1, 3, 3, 4])
+# np.add.at(Z, I, 1)
+# print(Z)
+
+#65
+# Z = np.array([1.5, 2.0, 0.8, 1.2, 3.1])
+# I = np.array([0, 1, 0, 2, 1])
+# sum_Z_I = np.zeros(np.max(I) + 1)
+# np.add.at(sum_Z_I, I, Z)
+# print("Суммарное время по серверам:", sum_Z_I)
+
+#66
+# w, h = 100, 100
+# image = np.random.randint(0, 256, (w, h, 3), dtype=np.uint8)
+# colors = image.reshape(-1, 3)
+# unique_colors = np.unique(colors, axis=0)
+# print("Размер изображения:", image.shape)
+# print("Количество уникальных цветов:", len(unique_colors))
+# import time
+# start = time.time()
+# unique_count = len(np.unique(image.reshape(-1, 3), axis=0))
+# end = time.time()
+# print(f"Время выполнения: {end-start:.6f} секунд")
+
+#67
+# arr_4d = np.random.rand(5, 3, 10, 8)
+# sum_last_two = np.sum(arr_4d, axis=(-2, -1))
+# print("Результат:")
+# print(sum_last_two)
+
+#68
+# Z = np.array([1.5, 2.0, 0.8, 1.2, 3.1, 2.5])
+# I = np.array([0, 1, 0, 2, 1, 0])
+# unique_I = np.unique(I)
+# mean_Z_I = np.full(np.max(I) + 1, np.nan)
+# for server in unique_I:
+#     mask = I == server
+#     mean_Z_I[server] = np.mean(Z[mask])
+# print(mean_Z_I)
+
+#69
+# A = np.array([[1, 2, 3],[4, 5, 6]])
+# B = np.array([[7, 8],[9, 10],[11, 12]])
+# diag_dot = np.einsum('ij,ji->i', A, B)
+# print("Диагональ через einsum:", diag_dot)
