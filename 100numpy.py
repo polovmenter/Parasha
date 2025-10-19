@@ -1,5 +1,56 @@
-import numpy as np
-import warnings
+# 1
+# import numpy as np
+
+#2
+# print(f'Версия: {np.version}')
+# print('Конфигурация:\n')
+#
+# np.show_config()
+#
+# #3
+# zero_vector = np.zeros(10)
+# print(zero_vector)
+#
+# #5
+# help(np.add)
+#
+# #6
+# null_vector = np.zeros(10)
+# null_vector[4] = 1
+# print(null_vector)
+#
+# #7
+# range_vector = np.arange(10, 50)
+# print(range_vector)
+#
+# #8
+# reversed_vector = np.flip(range_vector)
+# print(reversed_vector)
+#
+# #9
+# matrix3x3 = np.arange(9).reshape(3, 3)
+# print(matrix3x3)
+#
+# #10
+# vector = np.array([1, 2, 0, 0, 4, 0])
+# indeces = np.nonzero(vector)
+# print(vector, indeces)
+#
+# #11
+# identity_matrix = np.ones((3, 3))
+# print(identity_matrix)
+#
+# #12
+# rng = np.random.default_rng()
+# array_3x3x3 = rng.integers(10, size=(3, 3, 3))
+# print(array_3x3x3)
+
+#13
+# rng = np.random.default_rng()
+# array_10x10 = rng.integers(20, size=(10, 10))
+# print(array_10x10)
+# print('Min: ', array_10x10.min())
+# print('Min: ', array_10x10.max())
 
 #14
 # rng = np.random.default_rng()
