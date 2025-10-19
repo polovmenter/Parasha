@@ -339,4 +339,290 @@ import warnings
 # A = np.array([[1, 2, 3],[4, 5, 6]])
 # B = np.array([[7, 8],[9, 10],[11, 12]])
 # diag_dot = np.einsum('ij,ji->i', A, B)
-# print("Диагональ через einsum:", diag_dot)
+# print(diag_dot)+
+
+#70
+# Z = np.array([1, 2, 3, 4, 5])
+# result = np.zeros(len(Z) + (len(Z)-1)*3, dtype=Z.dtype)
+# result[::4] = Z
+# print(result)
+
+#72
+# a = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+# print(a)
+# a[[0, 2]] = a[[2, 0]]
+# print(a)
+
+#73
+# triangles = np.random.randint(0, 100, (10, 3))
+# segments = np.vstack([triangles[:, [0,1]], triangles[:, [1,2]], triangles[:, [2,0]]])
+# segments = np.sort(segments, axis=1)
+# unique_segments = np.unique(segments, axis=0)
+# print(unique_segments)
+
+#74
+# C = np.array([0, 2, 1, 3, 0, 1])
+# A = np.repeat(np.arange(len(C)), C)
+# print(A)
+
+#75
+# arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+# window_size = 3
+# moving_avg = np.convolve(arr, np.ones(window_size)/window_size, mode='valid')
+# print(arr)
+# print(moving_avg)
+
+#76
+# Z = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+# window_size = 3
+# result = np.array([Z[i:i+window_size] for i in range(len(Z) - window_size + 1)])
+# print(Z)
+# print(result)
+
+#77
+#77.1
+# bool_arr = np.array([True, False, True, False])
+# np.logical_not(bool_arr, out=bool_arr)
+# print(bool_arr)
+
+#77.2
+# float_arr = np.array([1.5, -2.5, 3.0, -4.0])
+# np.negative(float_arr, out=float_arr)
+# print(float_arr)
+
+#78
+# P0 = np.array([[0,0], [1,1], [2,0]])
+# P1 = np.array([[1,0], [2,2], [3,1]])
+# p = np.array([1, 1])
+# distances = np.abs(np.cross(P1-P0, p-P0) / np.linalg.norm(P1-P0))
+# print(distances)
+
+#79
+# P0 = np.array([[0, 0], [1, 0], [0, 1]]) 
+# P1 = np.array([[1, 1], [2, 1], [1, 2]])
+# P = np.array([[0.5, 0.5], [1, 1], [0, 0]])
+# distances = np.abs(np.cross(P1 - P0, P[:, np.newaxis] - P0)) / np.linalg.norm(P1 - P0, axis=1)
+# print(distances)
+
+#80
+# def extract_subpart(arr, center, shape, fill_value=0):
+#     result = np.full(shape, fill_value, dtype=arr.dtype)
+    
+#     start_i = max(0, center[0] - shape[0]//2)
+#     end_i = min(arr.shape[0], center[0] + shape[0]//2 + 1)
+#     start_j = max(0, center[1] - shape[1]//2)
+#     end_j = min(arr.shape[1], center[1] + shape[1]//2 + 1)
+    
+#     res_start_i = max(0, shape[0]//2 - center[0])
+#     res_end_i = res_start_i + (end_i - start_i)
+#     res_start_j = max(0, shape[1]//2 - center[1])
+#     res_end_j = res_start_j + (end_j - start_j)
+    
+#     result[res_start_i:res_end_i, res_start_j:res_end_j] = \
+#         arr[start_i:end_i, start_j:end_j]
+    
+#     return result
+
+# arr = np.arange(25).reshape(5, 5)
+# subpart = extract_subpart(arr, (2, 2), (3, 3))
+# print(arr)
+# print(subpart)
+
+#81
+# Z = np.arange(1, 15)
+# window_size = 4
+# R = Z[np.arange(window_size) + np.arange(len(Z) - window_size + 1).reshape(-1, 1)]
+# print(R)
+
+#82
+# matrix = np.random.random((4, 4))
+# rank = np.linalg.matrix_rank(matrix)
+# print(rank)
+
+#83
+# Z = np.array([1, 2, 2, 3, 3, 3, 4, 4, 4, 4])
+# values, counts = np.unique(Z, return_counts=True)
+# most_common = values[np.argmax(counts)]
+# print(most_common)
+
+#84
+# def extract_3x3_blocks(matrix):
+#     blocks = []
+#     for i in range(matrix.shape[0] - 2):
+#         for j in range(matrix.shape[1] - 2):
+#             blocks.append(matrix[i:i+3, j:j+3])
+#     return np.array(blocks)
+
+# matrix_10x10 = np.random.random((10, 10))
+# blocks_3x3 = extract_3x3_blocks(matrix_10x10)
+# print(blocks_3x3)
+
+#85
+# class SymmetricArray(np.ndarray):
+#     def __setitem__(self, index, value):
+#         i, j = index
+#         super().__setitem__((i, j), value)
+#         super().__setitem__((j, i), value)
+
+# base = np.zeros((3, 3))
+# symmetric = base.view(SymmetricArray)
+# symmetric[0, 1] = 5
+# print(symmetric)
+
+#86
+# p, n = 3, 4
+# matrices = np.random.random((p, n, n))
+# vectors = np.random.random((p, n, 1))
+# result = np.sum(matrices @ vectors, axis=0)
+# print(result.shape)
+
+#87
+# matrix_16x16 = np.arange(256).reshape(16, 16)
+# h, w = matrix_16x16.shape
+# bh, bw = 4, 4
+# block_sums = matrix_16x16.reshape(h//bh, bh, w//bw, bw).sum(axis=(1, 3))
+# print(f"\n4x4 block sums:")
+# print(block_sums)
+
+#88
+# def game_of_life(grid, steps=1):
+#     for _ in range(steps):
+#         neighbors = sum(np.roll(np.roll(grid, i, 0), j, 1)
+#                        for i in (-1, 0, 1) for j in (-1, 0, 1)
+#                        if (i != 0 or j != 0))
+#         birth = (neighbors == 3) & (grid == 0)
+#         survive = ((neighbors == 2) | (neighbors == 3)) & (grid == 1)
+#         grid = np.where(birth | survive, 1, 0)
+
+#     return grid
+# initial = np.zeros((10, 10))
+# initial[1, 2] = 1
+# initial[2, 3] = 1
+# initial[3, 1:4] = 1
+
+# next_gen = game_of_life(initial)
+# print(next_gen)
+
+#89
+# def n_largest(arr, n):
+#     if arr.ndim == 1:
+#         return arr[np.argpartition(arr, -n)[-n:]]
+#     else:
+#         flat_indices = np.argpartition(arr.ravel(), -n)[-n:]
+#         return np.unravel_index(flat_indices, arr.shape), arr.flat[flat_indices]
+
+# large_array = np.random.random(1000)
+# n_largest_vals = n_largest(large_array, 5)
+# print(n_largest_vals)
+
+#90
+# def cartesian_product(arrays):
+#     arrays = [np.asarray(arr) for arr in arrays]
+#     shape = [len(arr) for arr in arrays]
+#     ix = np.indices(shape)
+#     ix = ix.reshape(len(arrays), -1).T
+#     result = np.empty(ix.shape)
+#     for n, arr in enumerate(arrays):
+#         result[:, n] = arrays[n][ix[:, n]]
+#     return result
+
+# A = [1, 2, 3]
+# B = [4, 5]
+# cartesian = cartesian_product([A, B])
+# print(cartesian)
+
+#91
+# regular_array = np.array([(1, 2.0, 'Hello'), (2, 3.0, 'World')], dtype=[('x', 'i4'), ('y', 'f4'), ('z', 'U10')])
+# record_array = np.rec.array(regular_array)
+# print(record_array)
+# print(f"Field access: x={record_array.x}, y={record_array.y}")
+
+#92
+# Z = np.array([1, 2, 3, 4, 5])
+# print(f"\nZ = {Z}")
+# print("**: ", Z ** 3)
+# print("np.power: ", np.power(Z, 3))
+# print("multiplication:", Z * Z * Z)
+
+#93
+# def rows_containing_all_B(A, B):
+#     result = []
+#     for i, row_a in enumerate(A):
+#         contains_all = True
+#         for row_b in B:
+#             if not any(elem in row_a for elem in row_b):
+#                 contains_all = False
+#                 break
+#         if contains_all:
+#             result.append(i)
+#     return np.array(result)
+
+# A = np.random.randint(0, 10, (8, 3))
+# B = np.array([[4, 3], [1, 2]])
+# matching_rows = rows_containing_all_B(A, B)
+# print(matching_rows)
+
+#94
+# matrix_10x3 = np.random.randint(0, 3, (10, 3))
+# unequal = matrix_10x3[np.any(matrix_10x3 != matrix_10x3[:, [0]], axis=1)]
+# print(unequal)
+
+#95
+# def int_to_binary_matrix(arr):
+#     max_val = np.max(arr)
+#     num_bits = int(np.ceil(np.log2(max_val + 1))) if max_val > 0 else 1
+#     binary = (((arr[:, None] & (1 << np.arange(num_bits-1, -1, -1))) > 0).astype(int))
+#     return binary
+
+# arr = np.array([0, 1, 8])
+# binary_matrix = int_to_binary_matrix(arr)
+# print(binary_matrix)
+
+#97
+# A = np.array([1, 2, 3])
+# B = np.array([4, 5, 6])
+
+# print("np.inner:", np.inner(A, B))
+# print("einsum:", np.einsum('i,i', A, B))
+
+# print("np.outer:", np.outer(A, B))
+# print("einsum:", np.einsum('i,j->ij', A, B))
+
+# print("np.sum:", np.sum(A))
+# print("einsum:", np.einsum('i->', A))
+
+# print("A * B:", A * B)
+# print("einsum:", np.einsum('i,i->i', A, B))
+
+#98
+# def equidistant_samples(X, Y, n_samples):
+#     distances = np.sqrt(np.diff(X)**2 + np.diff(Y)**2)
+#     cumulative_dist = np.concatenate(([0], np.cumsum(distances)))
+#     total_dist = cumulative_dist[-1]
+#     sample_dists = np.linspace(0, total_dist, n_samples)
+#     sample_X = np.interp(sample_dists, cumulative_dist, X)
+#     sample_Y = np.interp(sample_dists, cumulative_dist, Y)
+#     return sample_X, sample_Y
+
+# X = np.array([0, 1, 2, 3, 4])
+# Y = np.array([0, 1, 0, 1, 0])
+# samples_X, samples_Y = equidistant_samples(X, Y, 10)
+# print(f"X: {samples_X}")
+# print(f"Y: {samples_Y}")
+
+#99
+# def multinomial_rows(X, n):
+#     is_integer = np.all(X == np.floor(X), axis=1)
+#     sums_to_n = np.sum(X, axis=1) == n
+#     return X[is_integer & sums_to_n]
+
+# X = np.array([[1, 2, 1], 
+#               [2.5, 1, 1.5], 
+#               [3, 0, 1], 
+#               [1, 1, 2]])
+# n = 4
+# is_integer = np.all(X == np.floor(X), axis=1)
+# sums_to_n = np.sum(X, axis=1) == n
+# X[is_integer & sums_to_n]
+# multinomial = X[is_integer & sums_to_n]
+# print(multinomial)
